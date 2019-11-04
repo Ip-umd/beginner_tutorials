@@ -43,3 +43,20 @@ cd ~/catkin_ws
 source ./devel/setup.bash
 rosrun beginner_tutorials listener
 ```
+
+## Running ROS launch 
+To run the launch file, run following commands (freq parameter is the loop rate of the publisher node):
+
+```
+cd <path to catkin_ws>
+source devel/setup.bash
+roslaunch beginner_tutorials beginner_tutorials.launch freq:=<frequency>
+```
+
+## Running Service
+
+```
+rosservice call /change_string "ENPM 808X"
+
+```
+
