@@ -60,11 +60,9 @@ msgString msgString1;
  * @param res response of the service
  * @return bool 
  */
-bool change(beginner_tutorials::changeBaseString::Request &req,
-            beginner_tutorials::changeBaseString::Response &res) {
- /// Updating the base string
- msgString1.message = req.inString;
- return true;
+bool change(beginner_tutorials::changeBaseString::Request &req, const beginner_tutorials::changeBaseString::Response &res) {
+msgString1.message = req.inString;
+return true;
 }
 
 /**
@@ -75,8 +73,7 @@ bool change(beginner_tutorials::changeBaseString::Request &req,
  *         
  */
 int main(int argc, char **argv) {
-  
-   msgString1.message = "Base string changed.";	
+  msgString1.message = "Base string changed.";	
   /**
    * The ros::init() function needs to see argc and argv so that it can perform
    * any ROS arguments and name remapping that were provided at the command line.
@@ -114,19 +111,16 @@ int main(int argc, char **argv) {
    * buffer up before throwing some away.
    */
   ros::Publisher chatterPub = n.advertise<std_msgs::String>("chatter", 1000);  
+  ros::ServiceServer service = n.advertiseService("change_string",change);	
   
-  ros::ServiceServer service = n.advertiseService("change_string",
-      change);	
-  
-
   //ROS_DEBUG_STREAM("Publisher and Service has been declared.");
 
   int freq = atoi(argv[1]);  
   if (freq <= 0) {
-    ROS_FATAL_STREAM("This argument is not valid. Setting frequency to default value i.e. 10.");
+    ROS_FATAL_STREAM("This argument is not valid.Setting frequency to default value i.e. 10.");
     freq = 10;
   } else if (freq > 100) {
-    ROS_ERROR_STREAM("Frequency is above maximum limit. Setting frequency to default value i.e. 10.");
+    ROS_ERROR_STREAM("Frequency is above maximum limit.Setting frequency to default value i.e. 10.");
     freq = 10;
   } else if (freq > 60 && freq < 100) {
     ROS_WARN_STREAM("Frequency is too high.");
