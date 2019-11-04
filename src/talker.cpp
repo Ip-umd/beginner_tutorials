@@ -45,11 +45,38 @@
 #include <sstream>
 #include "ros/ros.h"
 #include "std_msgs/String.h"
+#include "beginner_tutorials/changeBaseString.h"
+
+struct msgString{
+  std::string message;
+};
+
+/// Initialize object for the message
+msgString msgString1;
 
 /**
- * This tutorial demonstrates simple sending of messages over the ROS system.
+ * @brief changes the base string of talker
+ * @param req new string from service client
+ * @param res response of the service
+ * @return bool 
+ */
+bool change(beginner_tutorials::changeBaseString::Request &req,
+            beginner_tutorials::changeBaseString::Response &res) {
+ /// Updating the base string
+ msgString1.message = req.inString;
+ return true;
+}
+
+/**
+ * @brief main function
+ * @param argc count of arguments passed on command line
+ * @param argv Stores all commandline arguments
+ * @return 0 for successful execution
+ *         
  */
 int main(int argc, char **argv) {
+  
+   msgString1.message = "Base string changed.";	
   /**
    * The ros::init() function needs to see argc and argv so that it can perform
    * any ROS arguments and name remapping that were provided at the command line.
@@ -86,9 +113,28 @@ int main(int argc, char **argv) {
    * than we can send them, the number here specifies how many messages to
    * buffer up before throwing some away.
    */
-  ros::Publisher chatterPub = n.advertise<std_msgs::String>("chatter", 1000);
+  ros::Publisher chatterPub = n.advertise<std_msgs::String>("chatter", 1000);  
+  
+  ros::ServiceServer service = n.advertiseService("change_string",
+      change);	
+  
 
-  ros::Rate loop_rate(10);
+  //ROS_DEBUG_STREAM("Publisher and Service has been declared.");
+
+  int freq = atoi(argv[1]);  
+  if (freq <= 0) {
+    ROS_FATAL_STREAM("This argument is not valid. Setting frequency to default value i.e. 10.");
+    freq = 10;
+  } else if (freq > 100) {
+    ROS_ERROR_STREAM("Frequency is above maximum limit. Setting frequency to default value i.e. 10.");
+    freq = 10;
+  } else if (freq > 60 && freq < 100) {
+    ROS_WARN_STREAM("Frequency is too high.");
+  } else {
+    ROS_INFO_STREAM("Frequency : " << freq);
+  } 
+
+  ros::Rate loop_rate(freq);
 
   /**
    * A count of how many messages we have sent. This is used to create
@@ -102,7 +148,7 @@ int main(int argc, char **argv) {
     std_msgs::String msg;
 
     std::stringstream ss;
-    ss << "Robot Operating System is robotics middleware. " << count;
+    ss << msgString1.message << count;
     msg.data = ss.str();
 
     ROS_INFO("%s", msg.data.c_str());
