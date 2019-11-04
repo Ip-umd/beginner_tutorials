@@ -55,7 +55,14 @@ void chatterCallback(const std_msgs::String::ConstPtr& msg) {
   ROS_INFO("I heard: [%s]", msg->data.c_str());
 }
 
-
+/**
+ * @brief defines the listener node that subscribes to
+ *        the chatter topic 
+ * @param argc number of arguments 
+ * @param argv array of character pointers that points to
+ *        passed arguments
+ * @return 0 
+ */
 int main(int argc, char **argv) {
   /**
    * The ros::init() function needs to see argc and argv so that it can perform
