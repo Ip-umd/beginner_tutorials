@@ -1,0 +1,8 @@
+<launch>
+  <arg
+        name="freq"
+        default="10"
+  />
+  <node pkg="beginner_tutorials" type="talker" name="talker" args="$(arg frequency)" output = "screen"/>
+  <test pkg="beginner_tutorials" test-name="changeStringTest" type="changeStringTest" />
+</launch>
