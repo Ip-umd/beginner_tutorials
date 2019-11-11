@@ -1,3 +1,9 @@
-Done processing ./src/listener.cpp
-Done processing ./src/talker.cpp
+Done processing ./src/beginner_tutorials/test/changeStringTest.cpp
+Done processing ./src/beginner_tutorials/src/listener.cpp
+./src/beginner_tutorials/src/talker.cpp:64:  Is this a non-const reference? If so, make const or use a pointer: beginner_tutorials::changeBaseString::Request &req  [runtime/references] [2]
+./src/beginner_tutorials/src/talker.cpp:65:  Is this a non-const reference? If so, make const or use a pointer: beginner_tutorials::changeBaseString::Response &res  [runtime/references] [2]
+./src/beginner_tutorials/src/talker.cpp:127:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
+./src/beginner_tutorials/src/talker.cpp:130:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
+Done processing ./src/beginner_tutorials/src/talker.cpp
+Total errors found: 4
 
