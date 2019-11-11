@@ -115,7 +115,7 @@ int main(int argc, char **argv) {
    */
   ros::Publisher chatterPub = n.advertise<std_msgs::String>("chatter", 1000);
   ros::ServiceServer service = n.advertiseService("change_string", change);
-  
+
   /// Creating a tf broadcaster object
   tf::TransformBroadcaster br;
 
@@ -161,15 +161,16 @@ int main(int argc, char **argv) {
      * in the constructor above.
      */
     chatterPub.publish(msg);
-    
+
     /// Setting Origin
-    transform.setOrigin( tf::Vector3(1.0, 2.0, 3.0) );
+    transform.setOrigin(tf::Vector3(1.0, 2.0, 3.0) );
     tf::Quaternion q;
     q.setRPY(0, 0, 15);
     /// Setting Rotation
     transform.setRotation(q);
     /// Sending a transform with a TransformBroadcaster
-    br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "world", "talk"));
+    br.sendTransform(tf::StampedTransform(transform,
+ ros::Time::now(), "world", "talk"));
     ros::spinOnce();
 
     loop_rate.sleep();
