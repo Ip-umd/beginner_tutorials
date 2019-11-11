@@ -56,6 +56,8 @@ roslaunch beginner_tutorials beginner_tutorials.launch freq:=<frequency>
 ## Running Service
 
 ```
+cd <path to catkin_ws>
+source devel/setup.bash
 rosservice call /change_string "ENPM 808X"
 
 ```
