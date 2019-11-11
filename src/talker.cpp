@@ -52,7 +52,9 @@ struct msgString{
   std::string message;
 };
 
-/// Initialize object for the message
+/**
+ * Initialize object for the message
+ */
 msgString msgString1;
 
 /**
